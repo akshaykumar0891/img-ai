@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium AI Image Generator</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle" class="btn btn-outline-light btn-sm">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="text-center mb-5">
+            <div class="logo-container mb-4">
+                <i class="fas fa-magic logo-icon"></i>
+            </div>
+            <h1 class="display-4 fw-bold gradient-text mb-3">Premium AI Image Generator</h1>
+            <p class="lead text-muted">Transform your imagination into stunning visuals with advanced AI technology</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Generation Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="glass-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-palette me-2"></i>Create Your Image
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Prompt Input -->
+                            <div class="mb-4">
+                                <label for="promptInput" class="form-label fw-semibold">
+                                    <i class="fas fa-pen-fancy me-2"></i>Describe Your Vision
+                                </label>
+                                <textarea id="promptInput" class="form-control custom-input" rows="3" 
+                                         placeholder="Describe the image you want to generate... Be creative and detailed!"></textarea>
+                                <div class="form-text">
+                                    <i class="fas fa-lightbulb me-1"></i>
+                                    Try: "A majestic dragon flying over a mystical forest at sunset"
+                                </div>
+                            </div>
+
+                            <!-- Style Selection -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="styleSelect" class="form-label fw-semibold">
+                                        <i class="fas fa-brush me-2"></i>Style
+                                    </label>
+                                    <select id="styleSelect" class="form-select custom-select">
+                                        <option value="realistic">Realistic</option>
+                                        <option value="artistic">Artistic</option>
+                                        <option value="cartoon">Cartoon</option>
+                                        <option value="abstract">Abstract</option>
+                                        <option value="vintage">Vintage</option>
+                                        <option value="futuristic">Futuristic</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="resolutionSelect" class="form-label fw-semibold">
+                                        <i class="fas fa-expand-arrows-alt me-2"></i>Resolution
+                                    </label>
+                                    <select id="resolutionSelect" class="form-select custom-select">
+                                        <option value="512x512">512×512 (Fast)</option>
+                                        <option value="768x768">768×768 (Standard)</option>
+                                        <option value="1024x1024">1024×1024 (HD)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Format Selection -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-file-image me-2"></i>Output Format
+                                </label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="formatSelect" id="formatPNG" value="PNG" checked>
+                                    <label class="btn btn-outline-primary" for="formatPNG">PNG</label>
+                                    
+                                    <input type="radio" class="btn-check" name="formatSelect" id="formatJPEG" value="JPEG">
+                                    <label class="btn btn-outline-primary" for="formatJPEG">JPEG</label>
+                                    
+                                    <input type="radio" class="btn-check" name="formatSelect" id="formatWebP" value="WebP">
+                                    <label class="btn btn-outline-primary" for="formatWebP">WebP</label>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-grid gap-2">
+                                <button id="generateBtn" class="btn btn-primary btn-lg custom-btn">
+                                    <i class="fas fa-magic me-2"></i>Generate Image
+                                </button>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button id="batchBtn" class="btn btn-outline-secondary w-100">
+                                            <i class="fas fa-layer-group me-2"></i>Batch Generate
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button id="historyBtn" class="btn btn-outline-info w-100">
+                                            <i class="fas fa-history me-2"></i>History
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prompt Templates -->
+                            <div class="mt-4">
+                                <h6 class="fw-semibold mb-3">
+                                    <i class="fas fa-star me-2"></i>Quick Templates
+                                </h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-outline-secondary btn-sm template-btn" data-template="A serene landscape with mountains and a crystal clear lake">
+                                        <i class="fas fa-mountain me-1"></i>Landscape
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm template-btn" data-template="A futuristic cityscape at night with neon lights">
+                                        <i class="fas fa-city me-1"></i>Cityscape
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm template-btn" data-template="A cute cartoon character with big eyes and colorful outfit">
+                                        <i class="fas fa-smile me-1"></i>Character
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm template-btn" data-template="An abstract geometric pattern with vibrant colors">
+                                        <i class="fas fa-shapes me-1"></i>Abstract
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="glass-card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-image me-2"></i>Preview
+                            </h3>
+                            <div class="btn-group btn-group-sm" role="group" id="previewControls" style="display: none;">
+                                <button class="btn btn-outline-light" id="downloadBtn" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-outline-light" id="zoomBtn" title="Zoom">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <!-- Loading State -->
+                            <div id="loadingState" class="text-center" style="display: none;">
+                                <div class="loading-spinner mb-3"></div>
+                                <h5 class="mb-2">Creating Your Masterpiece</h5>
+                                <p class="text-muted">AI is working its magic...</p>
+                                <div class="progress mt-3" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="emptyState" class="text-center">
+                                <div class="empty-illustration mb-4">
+                                    <i class="fas fa-image fa-5x text-muted"></i>
+                                </div>
+                                <h5 class="text-muted mb-2">Ready to Create</h5>
+                                <p class="text-muted">Enter a prompt and click "Generate Image" to see your creation here</p>
+                            </div>
+
+                            <!-- Error State -->
+                            <div id="errorState" class="text-center text-danger" style="display: none;">
+                                <div class="mb-3">
+                                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                                </div>
+                                <h5 class="mb-2">Oops! Something went wrong</h5>
+                                <p id="errorMessage" class="mb-3"></p>
+                                <button class="btn btn-outline-danger" onclick="resetPreview()">
+                                    <i class="fas fa-redo me-2"></i>Try Again
+                                </button>
+                            </div>
+
+                            <!-- Success State -->
+                            <div id="successState" style="display: none;">
+                                <div class="image-container">
+                                    <img id="resultImage" class="generated-image" alt="Generated Image" />
+                                    <div class="image-overlay">
+                                        <div class="image-info">
+                                            <span id="imagePrompt" class="image-prompt"></span>
+                                            <div class="image-meta">
+                                                <span id="imageStyle" class="badge bg-primary me-2"></span>
+                                                <span id="imageResolution" class="badge bg-secondary"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="row mt-4" id="historySection" style="display: none;">
+                <div class="col-12">
+                    <div class="glass-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-history me-2"></i>Generation History
+                            </h3>
+                            <button class="btn btn-outline-light btn-sm" onclick="toggleHistory()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="historyGrid" class="row g-3">
+                                <!-- History items will be populated here -->
+                            </div>
+                            <div id="historyLoading" class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div id="historyEmpty" class="text-center text-muted" style="display: none;">
+                                <i class="fas fa-history fa-3x mb-3"></i>
+                                <h5>No History Yet</h5>
+                                <p>Generate your first image to see it appear here!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    <div class="modal fade" id="zoomModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white">Image Preview</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="zoomImage" class="img-fluid" alt="Zoomed Image" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Generation Modal -->
+    <div class="modal fade" id="batchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-layer-group me-2"></i>Batch Generation
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Generate multiple images at once (up to 5 prompts)</p>
+                    <div id="batchPrompts">
+                        <div class="mb-3">
+                            <textarea class="form-control batch-prompt" rows="2" placeholder="Prompt 1..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control batch-prompt" rows="2" placeholder="Prompt 2..."></textarea>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <button class="btn btn-outline-secondary" id="addPromptBtn">
+                            <i class="fas fa-plus me-2"></i>Add Prompt
+                        </button>
+                        <button class="btn btn-outline-danger" id="removePromptBtn">
+                            <i class="fas fa-minus me-2"></i>Remove Prompt
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="startBatchBtn">
+                        <i class="fas fa-magic me-2"></i>Generate All
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="./app.js"></script>
+</body>
+</html>
