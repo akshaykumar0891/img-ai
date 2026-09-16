@@ -139,7 +139,7 @@ async function handleGenerate() {
     };
     
     try {
-        const response = await fetch('https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-AIzaSyAOJHXSjGL7fOfxtd30V33gY4LQSoQr8IM==', {
+        const response = await fetch('https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm9ZV21vTFh2d011RXYtczgtYzVpTU9ZRWw1cHhzeE1xaHV2V2VoV2NUaUxHaWowLWpNaUhwUV9kVmllQTZacVB6MGpsb1pIano2YjdGUlBMZHpDREtEaE9NOWc9PQ==', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
